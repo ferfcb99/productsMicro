@@ -2,7 +2,6 @@ package com.productsmicro.controllers.impl;
 
 import com.productsmicro.constants.ApiResponseConstants;
 import com.productsmicro.controllers.GenreController;
-import com.productsmicro.entities.Genre;
 import com.productsmicro.models.GenreDto;
 import com.productsmicro.publics.ResponseApi;
 import com.productsmicro.services.GenreService;

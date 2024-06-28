@@ -1,7 +1,7 @@
 package com.productsmicro.services.impl;
 
 import com.productsmicro.entities.Category;
-import com.productsmicro.mappers.CategoryMapper;
+import com.productsmicro.mappers.MapperCategory;
 import com.productsmicro.models.CategoryDto;
 import com.productsmicro.repositories.CategoryRepository;
 import com.productsmicro.services.CategoryService;
@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDto> listAll() {
         List<Category> categories = categoryRepository.findAll();
-        List<CategoryDto> categoriesDto = CategoryMapper.mapEntityListToDtoList(categories);
+        List<CategoryDto> categoriesDto = MapperCategory.mapEntityListToDtoList(categories);
         return categoriesDto;
     }
 
@@ -37,27 +37,30 @@ public class CategoryServiceImpl implements CategoryService {
         if(!category.isPresent()){
             return null;
         }
-        return CategoryMapper.mapEntityToDto(category.get());
+        return MapperCategory.mapEntityToDto(category.get());
     }
 
     @Override
     public CategoryDto create(CategoryDto entity) {
         Category category;
         try {
-            category = this.categoryRepository.save(CategoryMapper.mapDtoToEntity(entity));
-            return CategoryMapper.mapEntityToDto(category);
+            System.out.println("Entro 1");
+            category = this.categoryRepository.save(MapperCategory.mapDtoToEntity(entity));
+            return MapperCategory.mapEntityToDto(category);
         }catch(Exception e){
+            System.out.println("Entro 1");
             e.printStackTrace();
             return null;
         }
+
     }
 
     @Override
     public List<CategoryDto> createMany(List<CategoryDto> entities) {
         List<Category> categories;
         try {
-            categories = this.categoryRepository.saveAll(CategoryMapper.mapDtoListToEntityList(entities));
-            return CategoryMapper.mapEntityListToDtoList(categories);
+            categories = this.categoryRepository.saveAll(MapperCategory.mapDtoListToEntityList(entities));
+            return MapperCategory.mapEntityListToDtoList(categories);
         }catch(Exception e){
             return null;
         }
@@ -73,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
         Optional<Category> category = this.categoryRepository.findById(id);
         if(category.isPresent()){
             this.categoryRepository.deleteById(id);
-            return CategoryMapper.mapEntityToDto(category.get());
+            return MapperCategory.mapEntityToDto(category.get());
         }
         return null;
     }

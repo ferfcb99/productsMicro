@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * The type Category mapper.
  */
-public final class CategoryMapper {
+public final class MapperCategory {
 
     /**
      * Map dto to entity category.

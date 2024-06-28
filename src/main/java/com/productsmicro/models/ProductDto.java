@@ -1,13 +1,20 @@
 package com.productsmicro.models;
 
 
+import com.productsmicro.entities.Category;
+import com.productsmicro.entities.Genre;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * The type Product dto.
+ */
 public class ProductDto implements Serializable {
 
-
-    private Long product_id;
 
 
     private String product_qr;
@@ -56,6 +63,10 @@ public class ProductDto implements Serializable {
 
     private LocalDate product_last_update_date;
 
+    private GenreDto genreDto;
+
+    private CategoryDto categoryDto;
+
     /**
      * Instantiates a new Product.
      */
@@ -63,9 +74,8 @@ public class ProductDto implements Serializable {
     }
 
     /**
-     * Instantiates a new Product.
+     * Instantiates a new Product dto.
      *
-     * @param product_id               the product id
      * @param product_qr               the product qr
      * @param product_name             the product name
      * @param product_size             the product size
@@ -82,9 +92,10 @@ public class ProductDto implements Serializable {
      * @param product_upc              the product upc
      * @param product_create_date      the product create date
      * @param product_last_update_date the product last update date
+     * @param genreDto                 the genre dto
+     * @param categoryDto              the category dto
      */
-    public ProductDto(Long product_id, String product_qr, String product_name, String product_size, String product_color, Double product_weight, String product_description, String product_brand, String product_status, String product_images, String product_tags, Double product_width, Double product_height, String product_sku, String product_upc, LocalDate product_create_date, LocalDate product_last_update_date) {
-        this.product_id = product_id;
+    public ProductDto(String product_qr, String product_name, String product_size, String product_color, Double product_weight, String product_description, String product_brand, String product_status, String product_images, String product_tags, Double product_width, Double product_height, String product_sku, String product_upc, LocalDate product_create_date, LocalDate product_last_update_date, GenreDto genreDto, CategoryDto categoryDto) {
         this.product_qr = product_qr;
         this.product_name = product_name;
         this.product_size = product_size;
@@ -101,25 +112,11 @@ public class ProductDto implements Serializable {
         this.product_upc = product_upc;
         this.product_create_date = product_create_date;
         this.product_last_update_date = product_last_update_date;
+        this.genreDto = genreDto;
+        this.categoryDto = categoryDto;
     }
 
-    /**
-     * Gets product id.
-     *
-     * @return the product id
-     */
-    public Long getProduct_id() {
-        return product_id;
-    }
 
-    /**
-     * Sets product id.
-     *
-     * @param product_id the product id
-     */
-    public void setProduct_id(Long product_id) {
-        this.product_id = product_id;
-    }
 
     /**
      * Gets product qr.
@@ -409,10 +406,45 @@ public class ProductDto implements Serializable {
         this.product_last_update_date = product_last_update_date;
     }
 
+    /**
+     * Gets genre dto.
+     *
+     * @return the genre dto
+     */
+    public GenreDto getGenreDto() {
+        return genreDto;
+    }
+
+    /**
+     * Sets genre dto.
+     *
+     * @param genreDto the genre dto
+     */
+    public void setGenreDto(GenreDto genreDto) {
+        this.genreDto = genreDto;
+    }
+
+    /**
+     * Gets category dto.
+     *
+     * @return the category dto
+     */
+    public CategoryDto getCategoryDto() {
+        return categoryDto;
+    }
+
+    /**
+     * Sets category dto.
+     *
+     * @param categoryDto the category dto
+     */
+    public void setCategoryDto(CategoryDto categoryDto) {
+        this.categoryDto = categoryDto;
+    }
+
     @Override
     public String toString() {
-        return "Product{" +
-                "product_id=" + product_id +
+        return "ProductDto{" +
                 ", product_qr='" + product_qr + '\'' +
                 ", product_name='" + product_name + '\'' +
                 ", product_size='" + product_size + '\'' +
@@ -429,7 +461,8 @@ public class ProductDto implements Serializable {
                 ", product_upc='" + product_upc + '\'' +
                 ", product_create_date=" + product_create_date +
                 ", product_last_update_date=" + product_last_update_date +
+                ", genreDto=" + genreDto +
+                ", categoryDto=" + categoryDto +
                 '}';
     }
-
 }

@@ -65,6 +65,7 @@ public class GenreServiceImpl implements GenreService {
             genres = this.genreRepository.saveAll(MapperGenre.mapDtoListToEntityList(entities));
             return MapperGenre.mapEntityListToDtoList(genres);
         }catch (Exception e){
+            e.printStackTrace();
             return null;
         }
     }

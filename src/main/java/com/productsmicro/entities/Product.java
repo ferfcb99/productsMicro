@@ -1,9 +1,6 @@
 package com.productsmicro.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,9 +13,6 @@ import java.time.LocalDate;
 public class Product implements Serializable {
 
     @Id
-    @Column(name = "ss_product_id")
-    private Long product_id;
-
     @Column(name = "ss_product_qr")
     private String product_qr;
 
@@ -43,9 +37,6 @@ public class Product implements Serializable {
     @Column(name = "ss_product_status")
     private String product_status;
 
-    @Column(name = "ss_product_images")
-    private String product_images;
-
     @Column(name = "ss_product_tags")
     private String product_tags;
 
@@ -66,6 +57,16 @@ public class Product implements Serializable {
 
     @Column(name = "ss_product_last_update_date")
     private LocalDate product_last_update_date;
+    
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "ss_genre_id")
+    private Genre genre;
+
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "ss_category_id", insertable = true, updatable = true)
+    private Category category;
+
 
     /**
      * Instantiates a new Product.
@@ -76,7 +77,6 @@ public class Product implements Serializable {
     /**
      * Instantiates a new Product.
      *
-     * @param product_id               the product id
      * @param product_qr               the product qr
      * @param product_name             the product name
      * @param product_size             the product size
@@ -85,7 +85,6 @@ public class Product implements Serializable {
      * @param product_description      the product description
      * @param product_brand            the product brand
      * @param product_status           the product status
-     * @param product_images           the product images
      * @param product_tags             the product tags
      * @param product_width            the product width
      * @param product_height           the product height
@@ -93,9 +92,10 @@ public class Product implements Serializable {
      * @param product_upc              the product upc
      * @param product_create_date      the product create date
      * @param product_last_update_date the product last update date
+     * @param genre                    the genre
+     * @param category                 the category
      */
-    public Product(Long product_id, String product_qr, String product_name, String product_size, String product_color, Double product_weight, String product_description, String product_brand, String product_status, String product_images, String product_tags, Double product_width, Double product_height, String product_sku, String product_upc, LocalDate product_create_date, LocalDate product_last_update_date) {
-        this.product_id = product_id;
+    public Product(String product_qr, String product_name, String product_size, String product_color, Double product_weight, String product_description, String product_brand, String product_status, String product_tags, Double product_width, Double product_height, String product_sku, String product_upc, LocalDate product_create_date, LocalDate product_last_update_date, Genre genre, Category category) {
         this.product_qr = product_qr;
         this.product_name = product_name;
         this.product_size = product_size;
@@ -104,7 +104,6 @@ public class Product implements Serializable {
         this.product_description = product_description;
         this.product_brand = product_brand;
         this.product_status = product_status;
-        this.product_images = product_images;
         this.product_tags = product_tags;
         this.product_width = product_width;
         this.product_height = product_height;
@@ -112,25 +111,10 @@ public class Product implements Serializable {
         this.product_upc = product_upc;
         this.product_create_date = product_create_date;
         this.product_last_update_date = product_last_update_date;
+        this.genre = genre;
+        this.category = category;
     }
 
-    /**
-     * Gets product id.
-     *
-     * @return the product id
-     */
-    public Long getProduct_id() {
-        return product_id;
-    }
-
-    /**
-     * Sets product id.
-     *
-     * @param product_id the product id
-     */
-    public void setProduct_id(Long product_id) {
-        this.product_id = product_id;
-    }
 
     /**
      * Gets product qr.
@@ -276,23 +260,6 @@ public class Product implements Serializable {
         this.product_status = product_status;
     }
 
-    /**
-     * Gets product images.
-     *
-     * @return the product images
-     */
-    public String getProduct_images() {
-        return product_images;
-    }
-
-    /**
-     * Sets product images.
-     *
-     * @param product_images the product images
-     */
-    public void setProduct_images(String product_images) {
-        this.product_images = product_images;
-    }
 
     /**
      * Gets product tags.
@@ -420,10 +387,46 @@ public class Product implements Serializable {
         this.product_last_update_date = product_last_update_date;
     }
 
+    /**
+     * Gets genre.
+     *
+     * @return the genre
+     */
+    public Genre getGenre() {
+        return genre;
+    }
+
+    /**
+     * Sets genre.
+     *
+     * @param genre the genre
+     */
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    /**
+     * Gets category.
+     *
+     * @return the category
+     */
+    public Category getCategory() {
+        return category;
+    }
+
+    /**
+     * Sets category.
+     *
+     * @param category the category
+     */
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+
     @Override
     public String toString() {
         return "Product{" +
-                "product_id=" + product_id +
                 ", product_qr='" + product_qr + '\'' +
                 ", product_name='" + product_name + '\'' +
                 ", product_size='" + product_size + '\'' +
@@ -432,7 +435,6 @@ public class Product implements Serializable {
                 ", product_description='" + product_description + '\'' +
                 ", product_brand='" + product_brand + '\'' +
                 ", product_status='" + product_status + '\'' +
-                ", product_images='" + product_images + '\'' +
                 ", product_tags='" + product_tags + '\'' +
                 ", product_width=" + product_width +
                 ", product_height=" + product_height +
@@ -440,6 +442,8 @@ public class Product implements Serializable {
                 ", product_upc='" + product_upc + '\'' +
                 ", product_create_date=" + product_create_date +
                 ", product_last_update_date=" + product_last_update_date +
+                ", genre=" + genre +
+                ", category=" + category +
                 '}';
     }
 }
