@@ -1,6 +1,6 @@
 package com.productsmicro.constants;
 
-public final class ApiResponseConstants {
+public final class ConstantsApiResponse {
 
     public static final String GET_DATA_SUCCESS = "GET_DATA_SUCCESS";
 

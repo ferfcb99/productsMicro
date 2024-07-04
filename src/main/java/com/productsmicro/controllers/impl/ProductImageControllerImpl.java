@@ -1,6 +1,6 @@
 package com.productsmicro.controllers.impl;
 
-import com.productsmicro.constants.ApiResponseConstants;
+import com.productsmicro.constants.ConstantsApiResponse;
 import com.productsmicro.controllers.ProductImageController;
 import com.productsmicro.models.ProductImageDto;
 import com.productsmicro.publics.ResponseApi;
@@ -29,7 +29,7 @@ public class ProductImageControllerImpl implements ProductImageController<Produc
     @GetMapping(value = "/getAllByProductId/{productId}")
     public ResponseEntity<ResponseApi<List<ProductImageDto>>> getAllByProductId(String productId) {
         return ResponseEntity
-                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productImageService.getAllProductImagesByProductId(productId), ApiResponseConstants.GET_DATA_SUCCESS));
+                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productImageService.getAllProductImagesByProductId(productId), ConstantsApiResponse.GET_DATA_SUCCESS));
     }
 
     @Override

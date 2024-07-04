@@ -1,6 +1,6 @@
 package com.productsmicro.controllers.impl;
 
-import com.productsmicro.constants.ApiResponseConstants;
+import com.productsmicro.constants.ConstantsApiResponse;
 import com.productsmicro.controllers.ProductController;
 import com.productsmicro.models.ProductDto;
 import com.productsmicro.publics.ResponseApi;
@@ -28,14 +28,14 @@ public class ProductControllerImpl implements ProductController<ProductDto> {
     @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseApi<List<ProductDto>>> listAll() {
         return ResponseEntity
-                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.listAll(), ApiResponseConstants.GET_DATA_SUCCESS));
+                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.listAll(), ConstantsApiResponse.GET_DATA_SUCCESS));
     }
 
     @Override
     @GetMapping(value = "/getById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseApi<ProductDto>> getById(@PathVariable String id) {
         return ResponseEntity
-                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.getById(id), ApiResponseConstants.GET_DATA_SUCCESS));
+                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.getById(id), ConstantsApiResponse.GET_DATA_SUCCESS));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ProductControllerImpl implements ProductController<ProductDto> {
     public ResponseEntity<ResponseApi<ProductDto>> create(@RequestBody ProductDto entity) {
 
         return ResponseEntity
-                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.create(entity), ApiResponseConstants.GET_DATA_SUCCESS));
+                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.create(entity), ConstantsApiResponse.GET_DATA_SUCCESS));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ProductControllerImpl implements ProductController<ProductDto> {
     public ResponseEntity<ResponseApi<List<ProductDto>>> createMany(@RequestBody List<ProductDto> entities) {
         System.out.println("Entro 6");
         return ResponseEntity
-                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.createMany(entities), ApiResponseConstants.GET_DATA_SUCCESS));
+                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.createMany(entities), ConstantsApiResponse.GET_DATA_SUCCESS));
     }
 
     @Override
@@ -63,6 +63,6 @@ public class ProductControllerImpl implements ProductController<ProductDto> {
     @DeleteMapping(value = "/deleteById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseApi<ProductDto>> deleteById(@PathVariable String id) {
         return ResponseEntity
-                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.deleteById(id), ApiResponseConstants.GET_DATA_SUCCESS));
+                .ok(new ResponseApi<>(String.valueOf(HttpStatus.OK), this.productService.deleteById(id), ConstantsApiResponse.GET_DATA_SUCCESS));
     }
 }
